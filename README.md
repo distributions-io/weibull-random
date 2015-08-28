@@ -20,9 +20,10 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 var random = require( 'distributions-weibull-random' );
 ```
 
-#### random( dims[, opts] )
+#### random( [dims][, opts] )
 
-Creates a [`matrix`](https://github.com/dstructs/matrix) or [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) filled with draws from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). The `dims` argument may either be a positive `integer` specifying a `length` or an `array` of positive `integers` specifying dimensions.
+Creates a [`matrix`](https://github.com/dstructs/matrix) or [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) filled with draws from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). The `dims` argument may either be a positive `integer` specifying a `length` or an `array` of positive `integers` specifying dimensions. If no `dims` argument is supplied,
+the function returns a single random draw from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution).
 
 ``` javascript
 var out;
