@@ -1,5 +1,5 @@
 {
-  "name": "rand-weibull",
+  "name": "distributions-weibull-random",
   "version": "0.0.0",
   "description": "Generates Weibull distributed random variates.",
   "author": {
@@ -20,7 +20,7 @@
   "main": "./lib",
   "repository": {
     "type": "git",
-    "url": "git://github.com/rand-io/weibull.git"
+    "url": "git://github.com/distributions-io/weibull-random.git"
   },
   "keywords": [
     "rand.io",
@@ -43,7 +43,7 @@
     "life times"
   ],
   "bugs": {
-    "url": "https://github.com/rand-io/weibull/issues"
+    "url": "https://github.com/distributions-io/weibull-random/issues"
   },
   "dependencies": {
     "compute-array-constructors": "^1.0.0",

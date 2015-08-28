@@ -8,7 +8,7 @@ Weibull Random Variables
 ## Installation
 
 ``` bash
-$ npm install rand-weibull
+$ npm install distributions-weibull-random
 ```
 
 For use in the browser, use [browserify](https://github.com/substack/node-browserify).
@@ -17,12 +17,12 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 ## Usage
 
 ``` javascript
-var random = require( 'rand-weibull' );
+var random = require( 'distributions-weibull-random' );
 ```
 
 #### random( dims[, opts] )
 
-Creates a [`matrix`](https://github.com/dstructs/matrix) or [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) filled with draws from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). The `dims` argument may either be a positive `integer` specifying a `length` or an `array` of positive `integers` specifying dimensions. A positive-integer seed for the underlying uniform number generator can be supplied by setting the seed property of the exported function.
+Creates a [`matrix`](https://github.com/dstructs/matrix) or [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) filled with draws from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). The `dims` argument may either be a positive `integer` specifying a `length` or an `array` of positive `integers` specifying dimensions.
 
 ``` javascript
 var out;
@@ -35,13 +35,13 @@ out = random( 5 );
 
 out = random( [2,1,2] );
 // returns [ [ [~0.564,~0.864] ], [ [~0.131,~0.495] ] ]
-
 ```
 
 The function accepts the following `options`:
 
 *	__lambda__: shape parameter. Default: `1`.
 *	__k__: scale parameter. Default: `1`.
+*	__seed__: positive integer used as a seed to initialize the generator. If not supplied, uniformly distributed random numbers are generated via an underlying generator seedable by setting the `seed` property of the exported function.
 *	__dtype__: output data type (see [`matrix`](https://github.com/dstructs/matrix) for a list of acceptable data types). Default: `generic`.
 
 A [Weibull](https://en.wikipedia.org/wiki/Weibull_distribution) distribution is a function of two parameters: `lambda`(shape parameter) and `k`(scale parameter). By default, `lambda` is equal to `1` and `k` is equal to `1`. To adjust either parameter, set the corresponding option.
@@ -55,6 +55,39 @@ var out = random( 5, {
 
 ```
 
+To be able to reproduce the generated random variates, set the `seed` option to a positive integer.
+
+``` javascript
+var out = random( 3, {
+	'seed': 22
+});
+// returns [ ~0.278, ~1.931, 3.26 ]
+
+var out = random( 3, {
+    'seed': 22
+});
+// returns [ ~0.278, ~1.931, 3.26 ]
+```
+
+If no `seed` option is supplied, each function call uses a common underlying uniform number generator. A positive-integer seed for this underlying generator can be supplied by setting the seed property of the exported function.
+
+```javascript
+random.seed = 11;
+var out = random();
+// returns 0.278
+
+var out = random();
+// returns 0.617
+
+random.seed = 11;
+var out = random();
+// returns 0.278
+
+var out = random();
+// returns 0.617
+
+```
+
 By default, the output data structure is a generic [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array). To output a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) or [`matrix`](https://github.com/dstructs/matrix), set the `dtype` option.
 
 ``` javascript
@@ -63,15 +96,15 @@ var out;
 out = random( 5, {
 	'dtype': 'float32'
 });
-// returns Float32Array( [~1.118,~4.757,~0.864,~0.074,~1.105] )
+// returns Float32Array( [1.96,~0.547,~0.013,~0.126,~0.223] )
 
 out = random( [3,2], {
 	'dtype': 'float64'
 });
 /*
-	[ 0.72   ~0.527
-	  ~0.376 ~1.243
-	  1.26   ~1.132 ]
+	[ 2.48 ~0.095
+	  ~0.262 ~0.621
+	  ~1.482 ~0.693 ]
 */
 
 ```
@@ -83,7 +116,8 @@ __Notes__:
 	var out = random( [2,1,3], {
 		'dtype': 'float32'
 	});
-	// returns [ [ [ ~0.174, ~0.256, ~2.298 ], [ [ ~1.445, ~0.552, ~0.852 ] ] ]
+	// returns [ ~2.099, ~1.905, ~2.823, ~0.691, ~0.348, ~0.630 ]
+
 	```
 
 ## Examples
@@ -163,20 +197,20 @@ $ make view-cov
 Copyright &copy; 2015. The [Compute.io](https://github.com/compute-io) Authors.
 
 
-[npm-image]: http://img.shields.io/npm/v/rand-weibull.svg
-[npm-url]: https://npmjs.org/package/rand-weibull
+[npm-image]: http://img.shields.io/npm/v/distributions-weibull-random.svg
+[npm-url]: https://npmjs.org/package/distributions-weibull-random
 
-[travis-image]: http://img.shields.io/travis/rand-io/weibull/master.svg
-[travis-url]: https://travis-ci.org/rand-io/weibull
+[travis-image]: http://img.shields.io/travis/distributions-io/weibull-random/master.svg
+[travis-url]: https://travis-ci.org/distributions-io/weibull-random
 
-[codecov-image]: https://img.shields.io/codecov/c/githubrand-io/weibull/master.svg
-[codecov-url]: https://codecov.io/github/rand-io/weibull?branch=master
+[codecov-image]: https://img.shields.io/codecov/c/github/distributions-io/weibull-random/master.svg
+[codecov-url]: https://codecov.io/github/distributions-io/weibull-random?branch=master
 
-[dependencies-image]: http://img.shields.io/david/rand-io/weibull.svg
-[dependencies-url]: https://david-dm.org/rand-io/weibull
+[dependencies-image]: http://img.shields.io/david/distributions-io/weibull-random.svg
+[dependencies-url]: https://david-dm.org/distributions-io/weibull-random
 
-[dev-dependencies-image]: http://img.shields.io/david/dev/rand-io/weibull.svg
-[dev-dependencies-url]: https://david-dm.org/dev/rand-io/weibull
+[dev-dependencies-image]: http://img.shields.io/david/dev/distributions-io/weibull-random.svg
+[dev-dependencies-url]: https://david-dm.org/dev/distributions-io/weibull-random
 
-[github-issues-image]: http://img.shields.io/github/issues/rand-io/weibull.svg
-[github-issues-url]: https://github.com/rand-io/weibull/issues
+[github-issues-image]: http://img.shields.io/github/issues/distributions-io/weibull-random.svg
+[github-issues-url]: https://github.com/distributions-io/weibull-random/issues
